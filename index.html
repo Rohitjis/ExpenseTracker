@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker</title>
+  <style>
+    :root {
+      --bg-color-light: #f8f9fa;
+      --bg-color-dark: #121212;
+      --text-color-light: #333;
+      --text-color-dark: #ffffff;
+    }
+
+    body.light {
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+    }
+
+    body.dark {
+      background-color: var(--bg-color-dark);
+      color: var(--text-color-dark);
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .theme-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .total {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .expense-list {
+      margin-top: 20px;
+    }
+
+    .expense-item {
+      background-color: #f8f9fa;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .delete-btn {
+      background-color: red;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+
+    .btn-toggle-view {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .btn-toggle-view:hover {
+      background-color: #0056b3;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        width: 100%;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      input,
+      select,
+      textarea {
+        padding: 8px;
+      }
+
+      button,
+      .btn-toggle-view {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body class="light">
+  <div class="container">
+    <div class="theme-toggle">
+      <label for="theme">Theme:</label>
+      <select id="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+
+    <h1>Expense Tracker</h1>
+
+    <div id="formView">
+      <form id="expenseForm">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required />
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+          <option value="Grocery">Grocery</option>
+          <option value="Bills">Bills</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <button type="submit">Add Expense</button>
+      </form>
+
+      <div class="total" id="totalAmount">Total: ₹0</div>
+    </div>
+
+    <div id="viewList" style="display:none;">
+      <h2>View Expenses</h2>
+      <label for="filterCategory">Filter by Category:</label>
+      <select id="filterCategory">
+        <option value="">All</option>
+        <option value="Grocery">Grocery</option>
+        <option value="Bills">Bills</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <div id="expensesByDate"></div>
+    </div>
+
+    <button class="btn-toggle-view" id="toggleViewBtn">Switch to View Expenses</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
