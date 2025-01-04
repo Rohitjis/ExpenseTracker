@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Expenses</title>
+  <style>
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #e9ecef;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>View Expenses</h1>
+
+    <label for="filterCategory">Filter by Category:</label>
+    <select id="filterCategory">
+      <option value="">All</option>
+      <option value="Grocery">Grocery</option>
+      <option value="Bills">Bills</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <ul id="expenseList"></ul>
+  </div>
+
+  <script>
+    const expenseList = document.getElementById("expenseList");
+    const filterCategory = document.getElementById("filterCategory");
+    const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
+
+    function renderExpenses(filter = null) {
+      expenseList.innerHTML = "";
+
+      const filteredExpenses = filter
+        ? expenses.filter((expense) => expense.category === filter)
+        : expenses;
+
+      filteredExpenses.forEach((expense) => {
+        const li = document.createElement("li");
+        li.textContent = `${expense.date} - ${expense.category} - ₹${expense.amount} - ${expense.description}`;
+        expenseList.appendChild(li);
+      });
+    }
+
+    filterCategory.addEventListener("change", (event) => {
+      renderExpenses(event.target.value);
+    });
+
+    renderExpenses();
+  </script>
+</body>
+
+</html>
